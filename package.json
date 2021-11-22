@@ -2,7 +2,7 @@
     "name": "Board",
     "version" : "1.0.0",
     "scripts": {
-        "client" : "cd cleint && yarn start",
+        "client" : "cd client && yarn start",
         "server" : "nodemon server.js",
         "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
     },

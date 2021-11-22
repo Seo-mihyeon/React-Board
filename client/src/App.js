@@ -20,33 +20,26 @@ const styles = theme => ({
   }
 })
 
-const customers = [
-  {
-  'id' : 1,
-  'image' : 'https://placeimg.com/64/64/1',
-  'name': '홍길동',
-  'birthday' : '112233',
-  'gender' : '남자',
-  'job' : '대학생'
-  },
-  {
-    'id' : 2,
-    'image' : 'https://placeimg.com/64/64/2',
-    'name': '홍길순',
-    'birthday' : '112233',
-    'gender' : '여자',
-    'job' : '대학생'
-  },
-  {
-    'id' : 3,
-    'image' : 'https://placeimg.com/64/64/3',
-    'name': '홍길이',
-    'birthday' : '112233',
-    'gender' : '남자',
-    'job' : '대학생'
-  }
-]
+
 class App extends Component{
+
+  state = {
+    customers : ""
+  }
+
+  // api서버에 접근하여 데이터를 받아오는 작업
+  componentDidMount(){
+    this.callApi()
+    .then(res => this.setState([customers: res]))
+    .catch(err => console.log(error));
+  }
+
+  callApi = async () => {
+    const response = await fetch('/api/customers');
+    const body = await response.json();
+    return body;
+  }
+
   render() {
     const { classes }  = this.props;
     return (
