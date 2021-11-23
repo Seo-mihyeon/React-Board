@@ -20,7 +20,7 @@ const styles = theme => ({
   }
 })
 
-
+// 변경가능 state 변경불가능 props
 class App extends Component{
 
   state = {
@@ -30,13 +30,13 @@ class App extends Component{
   // api서버에 접근하여 데이터를 받아오는 작업
   componentDidMount(){
     this.callApi()
-    .then(res => this.setState([customers: res]))
-    .catch(err => console.log(error));
+    .then(res => this.setState({customers: res}))
+    .catch(err => console.log(err));
   }
 
   callApi = async () => {
-    const response = await fetch('/api/customers');
-    const body = await response.json();
+    const response = await fetch('/api/customers'); // 접속하고자하는 api 주소
+    const body = await response.json(); // 목록을 json 형태로 만들어서 넣는다
     return body;
   }
 
@@ -56,7 +56,9 @@ class App extends Component{
             </TableRow>
           </TableHead>
           <TableBody>
-            {customers.map( c => { return ( <Customer key={c.id} id={c.id} image = {c.image} name = {c.name} birthday = {c.birthday} gender = {c.gender} job ={c.job} /> ); }) }
+            {this.state.customers ? this.state.customers.map( c => { 
+              return ( <Customer key={c.id} id={c.id} image = {c.image} name = {c.name} birthday = {c.birthday} gender = {c.gender} job ={c.job} /> ); 
+            }) : ""}
           </TableBody>
         </Table>
       </Paper>
